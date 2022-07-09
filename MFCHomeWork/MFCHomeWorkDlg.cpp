@@ -111,8 +111,8 @@ BOOL CMFCHomeWorkDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	m_List.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-	m_List.InsertColumn(0, _T("시도"), LVCFMT_CENTER, 30);
-	m_List.InsertColumn(1, _T("시군구"), LVCFMT_CENTER, 50);
+	m_List.InsertColumn(0, _T("시도"), LVCFMT_CENTER, 50);
+	m_List.InsertColumn(1, _T("시군구"), LVCFMT_CENTER, 80);
 	m_List.InsertColumn(2, _T("터널안"), LVCFMT_CENTER, 60);
 	m_List.InsertColumn(3, _T("교량위"), LVCFMT_CENTER, 60);
 	m_List.InsertColumn(4, _T("고가도로위"), LVCFMT_CENTER, 60);
@@ -125,8 +125,8 @@ BOOL CMFCHomeWorkDlg::OnInitDialog()
 	m_List.InsertColumn(11, _T("기타"), LVCFMT_CENTER, 60);
 	m_List.InsertColumn(12, _T("불명"), LVCFMT_CENTER, 60);
 
-	m_List.InsertItem(0, _T("1"));
-	m_List.SetItem(0, 1, LVIF_TEXT, _T("서울"), NULL, NULL, NULL, NULL);
+	m_List.InsertItem(0, NULL);
+	m_List.SetItem(0, 1, LVIF_TEXT, NULL, NULL, NULL, NULL, NULL);
 	m_List.SetItem(0, 2, LVIF_TEXT, NULL, NULL, NULL, NULL, NULL);
 	m_List.SetItem(0, 3, LVIF_TEXT, NULL, NULL, NULL, NULL, NULL);
 	m_List.SetItem(0, 4, LVIF_TEXT, NULL, NULL, NULL, NULL, NULL);
@@ -142,18 +142,18 @@ BOOL CMFCHomeWorkDlg::OnInitDialog()
 
 
 	m_SumList.SetExtendedStyle(LVS_EX_GRIDLINES | LVS_EX_FULLROWSELECT);
-	m_SumList.InsertColumn(1, _T("총 합"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(2, _T("터널안"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(3, _T("교량위"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(4, _T("고가도로위"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(5, _T("지하차도(도로)내"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(6, _T("기타단일로"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(7, _T("교차로내"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(8, _T("교차로횡단보도내"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(9, _T("교차로부근"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(10, _T("철길건널목"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(11, _T("기타"), LVCFMT_CENTER, 60);
-	m_SumList.InsertColumn(12, _T("불명"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(0, _T("시도/시군구"), LVCFMT_CENTER, 80);
+	m_SumList.InsertColumn(1, _T("터널안"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(2, _T("교량위"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(3, _T("고가도로위"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(4, _T("지하차도(도로)내"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(5, _T("기타단일로"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(6, _T("교차로내"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(7, _T("교차로횡단보도내"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(8, _T("교차로부근"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(9, _T("철길건널목"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(10, _T("기타"), LVCFMT_CENTER, 60);
+	m_SumList.InsertColumn(11, _T("불명"), LVCFMT_CENTER, 60);
 
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
@@ -214,7 +214,7 @@ void CMFCHomeWorkDlg::OnBnClickedListupbutton()
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	//자료 가져오기=================================
 	UpdateData(true);
-	plist= new ListController;
+	
 	plist->DelCityData();
 	m_List.DeleteAllItems();
 
@@ -261,18 +261,8 @@ void CMFCHomeWorkDlg::OnBnClickedSearchingbutton()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 
-		CChildDig child;
-
-		//전체 전달
-	/*	UpdateData(true);
-		for (int i = 0; i < plist->SizeofVector(); i++)
-		{
-			child.SetCityData(plist->GetCityData(i));
-		}
-		child.DoModal();
-		UpdateData(false);
-		*/
-
+	CChildDig* child =new CChildDig;
+	
 		//시 검색 전달
 		UpdateData(true);
 		for (int i = 0; i < plist->SizeofVector(); i++)
@@ -281,7 +271,7 @@ void CMFCHomeWorkDlg::OnBnClickedSearchingbutton()
 			{
 				for (int j = 0; j < 13; j++)
 				{
-					child.SetCityData(plist->GetCityData(i));
+					child->SetCityData(plist->GetCityData(i));
 					i++;
 				}
 			}	
@@ -291,13 +281,37 @@ void CMFCHomeWorkDlg::OnBnClickedSearchingbutton()
 			{
 				for (int j = 0; j < 13; j++)
 				{
-					child.SetCityData(plist->GetCityData(i - 1));
+					child->SetCityData(plist->GetCityData(i - 1));
 					i++;
 				}
 			}
 		}
-		child.DoModal();
+	
+		
+		child->DoModal();
+		//CString 변환
+		int cnt = m_SumList.GetItemCount();
+		CString str;
+		str.Format(_T(" % d"), cnt);
+		m_SumList.InsertItem(cnt, str);
+
+		for (int i = 0; i < 12; i++)
+		{
+			if (i==0) 
+			{
+				m_SumList.SetItem(cnt, i, LVIF_TEXT, m_SearchingMessage, NULL, NULL, NULL, NULL);
+			}
+			else
+			{
+				m_SumList.SetItem(cnt, i, LVIF_TEXT, child->SumColum(i + 1), NULL, NULL, NULL, NULL);
+
+			}
+		}
+
+
+		
 		UpdateData(false);
+		
 }
 
 
@@ -309,4 +323,12 @@ void CMFCHomeWorkDlg::OnEnChangeSearchingedit()
 	// 이 알림 메시지를 보내지 않습니다.
 
 	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+
+void CMFCHomeWorkDlg::SetEditBox()
+{
+	// TODO: 여기에 구현 코드 추가.
+	
+
 }

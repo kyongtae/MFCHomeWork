@@ -71,6 +71,7 @@ BOOL CChildDig::OnInitDialog()
 	}
 
 
+
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
 
@@ -97,3 +98,26 @@ void CChildDig::SetVectorCityData(vector <CString> &plist)
 {
 	plist = ChildCopylist;
 }
+
+int CChildDig::SizeofVector()
+{
+	return ChildCopylist.size();
+}
+
+
+
+CString CChildDig::SumColum(int idx)
+{
+	int Beforval = 0; // int형 선언
+	int Afterval = 0;
+	for (int i = 0; i < ChildCopylist.size()/13; i++)
+	{                          
+		CString str = ChildCopylist.at(idx + 13 * i);     //CString형 선언										 
+		Beforval = _ttoi(str);
+		Afterval = Afterval + Beforval;
+	}
+	CString Afterstr;      //CString형 선언
+	Afterstr.Format(_T("%d"), Afterval);//int 를 CStirng으로 변환
+	return  Afterstr;
+}
+	

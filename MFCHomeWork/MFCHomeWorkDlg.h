@@ -16,6 +16,7 @@
 class CMFCHomeWorkDlg : public CDialogEx
 {
 // 생성입니다.
+	
 public:
 	CMFCHomeWorkDlg(CWnd* pParent = nullptr);	// 표준 생성자입니다.
 
@@ -40,11 +41,15 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CListCtrl m_List;
+	CListCtrl m_SumList;
+	CString m_SearchingMessage;
+	ListController* plist = new ListController;
+	
+	
+	 
+	void SetEditBox();
 	afx_msg void OnBnClickedListupbutton();
 	afx_msg void OnBnClickedSearchingbutton();
-	CListCtrl m_SumList;
-	
-	CString m_SearchingMessage;
-	ListController* plist;
 	afx_msg void OnEnChangeSearchingedit();
+	
 };

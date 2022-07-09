@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "afxdialogex.h"
+#include "MFCHomeWorkDlg.h"
 #include <vector>
 using namespace std;
 
@@ -9,6 +10,7 @@ class CChildDig : public CDialogEx
 {
 	DECLARE_DYNAMIC(CChildDig)
 	vector <CString> ChildCopylist;
+	vector <CString> ChildSumList;
 
 public:
 	CChildDig(CWnd* pParent = nullptr);   // 표준 생성자입니다.
@@ -30,6 +32,11 @@ public:
 
 	void SetCityData(CString _data);
 	CString GetCityData(int idx);
-
+	int SizeofVector();
 	void SetVectorCityData(vector <CString> &plist);
+	
+	
+
+	CString SumColum(int idx);
+	
 };
